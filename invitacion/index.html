@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invitación de 15 Años</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background: linear-gradient(to bottom, #fdf6e3, #f1d8b4);
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+      padding: 20px 10px;
+      color: #5a4e3c;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Flores grandes abajo */
+    .flores-grandes {
+      width: 100%;
+      max-height: 180px;
+      object-fit: cover;
+      margin-top: 15px;
+      filter: drop-shadow(0 0 8px #d4af37);
+      border-radius: 20px;
+      opacity: 0.85;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* Flores dispersas por la invitación */
+    body::before, body::after {
+      content: "";
+      position: fixed;
+      width: 100px;
+      height: 100px;
+      background: url('https://static.vecteezy.com/system/resources/thumbnails/009/597/218/small_2x/rose-flower-and-botanical-leaf-digital-painted-png.png') no-repeat center center/contain;
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::before {
+      top: 10px;
+      left: 10px;
+      transform: rotate(-20deg);
+    }
+    body::after {
+      bottom: 10px;
+      right: 10px;
+      transform: rotate(15deg);
+    }
+
+    .container {
+      max-width: 100%;
+      margin: auto;
+      padding: 20px 15px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+      animation: fadeInUp 1.2s ease forwards;
+      opacity: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Foto principal grande con texto */
+    .foto-principal-container {
+      position: relative;
+      width: 100%;
+      max-height: 90vh;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 0 35px #d4af37;
+      animation: fadeInScale 1.5s ease forwards;
+      opacity: 0;
+    }
+    .foto-principal-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      border-radius: 20px;
+    }
+    .nombre-sobre-foto {
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(211, 175, 55, 0.8);
+      color: white;
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      padding: 10px 20px;
+      border-radius: 30px;
+      box-shadow: 0 0 20px #d4af37;
+      white-space: nowrap;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      color: #c39738;
+      text-align: center;
+      animation: glowText 3s ease-in-out infinite alternate;
+      margin: 15px 0 10px 0;
+    }
+
+    .poema {
+      text-align: center;
+      font-style: italic;
+      font-size: 1rem;
+      margin: 20px 0;
+      padding: 10px;
+      background-color: #fff5e6;
+      border-left: 4px solid #c39738;
+      border-right: 4px solid #c39738;
+      border-radius: 10px;
+      animation: fadeInUp 1.8s ease forwards;
+      opacity: 0;
+      box-shadow: 0 0 15px #c39738;
+      line-height: 1.3;
+    }
+
+    .flores {
+      display: block;
+      margin: 20px auto;
+      width: 80vw;
+      max-width: 350px;
+      border-radius: 10px;
+      animation: fadeInScale 2s ease forwards;
+      opacity: 0;
+      filter: drop-shadow(0 0 5px #d4af37);
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .seccion-info {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 1rem;
+      animation: fadeInUp 2.1s ease forwards;
+      opacity: 0;
+    }
+    .titulo-info {
+      font-weight: bold;
+      color: #b48a2c;
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+    }
+    .foto-grande {
+      display: block;
+      margin: 30px auto;
+      width: 90vw;
+      max-width: 600px;
+      height: auto;
+      border: 6px solid #c39738;
+      border-radius: 15px;
+      animation: fadeInScale 2.3s ease forwards;
+      opacity: 0;
+      box-shadow: 0 0 25px #d4af37;
+    }
+    .ubicaciones {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 15px;
+      margin-top: 30px;
+      animation: fadeInUp 2.5s ease forwards;
+      opacity: 0;
+      flex-wrap: nowrap;
+    }
+    .cuadro {
+      flex: 1 1 48%;
+      background-color: #fffaf0;
+      border: 3px solid #c39738;
+      border-radius: 15px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+      transition: box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .cuadro:hover {
+      box-shadow: 0 0 20px 4px #d4af37;
+    }
+    .icon-link {
+      cursor: pointer;
+      color: #b48a2c;
+      transition: color 0.3s ease;
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+    }
+    .icon-link:hover {
+      color: #a57d2b;
+    }
+    svg {
+      width: 100%;
+      height: 100%;
+      fill: currentColor;
+    }
+    .btn-confirmar {
+      display: block;
+      width: 80vw;
+      max-width: 300px;
+      margin: 40px auto 20px;
+      padding: 15px 30px;
+      background-color: #c39738;
+      color: white;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      text-align: center;
+      text-decoration: none;
+      font-family: 'Playfair Display', serif;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      animation: fadeInUp 2.8s ease forwards;
+      opacity: 0;
+    }
+    .btn-confirmar:hover {
+      background-color: #a57d2b;
+      box-shadow: 0 0 25px #d4af37;
+    }
+
+    /* Reproductor estilo princesa */
+    .audio-player {
+  margin: 25px auto 0;
+  width: 95%;
+  max-width: 360px;
+  background: #ffe4e1;
+  border: 3px solid #ffb6c1;
+  border-radius: 25px;
+  padding: 15px;
+  box-shadow: 0 0 15px #ff69b4;
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  color: #c71585;
+  animation: fadeInUp 3s ease forwards;
+  opacity: 0;
+  user-select: none;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+    .audio-player h3 {
+      margin: 0 0 10px 0;
+      font-family: 'Great Vibes', cursive;
+      font-size: 2rem;
+      color: #ff1493;
+      text-shadow: 0 0 15px #ff69b4;
+    }
+    .audio-player audio {
+      width: 100%;
+      outline: none;
+      border-radius: 20px;
+      box-shadow: 0 0 10px #ff69b4;
+      cursor: pointer;
+    }
+     .foto-flores{
+      display: block;
+      margin: 30px auto;
+      width: 90vw;
+      max-width: 600px;
+      height: auto;
+      border: 6px solid #c39738;
+      border-radius: 15px;
+      animation: fadeInScale 2.3s ease forwards;
+      opacity: 0;
+      box-shadow: 0 0 25px #d4af37;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+        filter: brightness(0.7);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: brightness(1);
+      }
+    }
+
+    @keyframes glowText {
+      0% {
+        text-shadow: 0 0 5px #c39738, 0 0 10px #d4af37, 0 0 20px #ffd700;
+      }
+      100% {
+        text-shadow: 0 0 20px #c39738, 0 0 30px #d4af37, 0 0 40px #ffd700;
+      }
+    }
+    @media screen and (max-width: 480px) {
+  .nombre-sobre-foto {
+    font-size: 1.2rem;
+    padding: 5px 10px;
+    border-radius: 20px;
+    bottom: 8px;
+  }
+
+  .foto-grande {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    box-sizing: border-box;
+  }
+}
+  </style>
+</head>
+<body>
+ 
+  
+        <img class="flores" src="https://static.vecteezy.com/system/resources/thumbnails/009/597/218/small_2x/rose-flower-and-botanical-leaf-digital-painted-png.png" alt="Decoración floral" />
+
+  
+ 
+  <div class="container">
+    <div class="foto-principal-container">
+      <img
+        src="https://i.imgur.com/HEXVv91.jpeg"
+        alt="Foto grande de la Quinceañera"
+      />
+      <div class="nombre-sobre-foto">Mayli Janelis Torres Torres</div>
+    </div>
+
+    <h1>Mis 15 Años</h1>
+
+    <div class="poema">
+      Agradezco de corazón ❤ a mis padres y familiares que hicieron posible que esta noche sea mágica e inolvidable.
+    </div>
+
+   <img class="flores" src="https://i.imgur.com/UZqf4Pd.png" alt="Decoración floral" />
+
+    <div class="seccion-info">
+      <div class="titulo-info">Con el amor de mis padres</div>
+      <p>Henry Leonardo Torres Parra &amp; Mayra Marixa Torres Durán</p>
+    </div>
+
+    <div class="seccion-info">
+      <div class="titulo-info">Con mis padrinos de honor</div>
+      <p>Nataly Durán &amp; Marcelo Durán</p>
+    </div>
+ <img class="flores" src="https://static.vecteezy.com/system/resources/previews/023/450/791/non_2x/pink-flower-bouquet-free-png.png" alt="Decoración floral" />
+    <img
+      class="foto-grande"
+      src="https://i.imgur.com/PSt8FaQ.jpeg"
+      alt="Foto grande"
+    />
+ <img class="flores" src="https://static.vecteezy.com/system/resources/previews/023/451/075/non_2x/pink-flower-bouquet-free-png.png" alt="Decoración floral" />
+
+
+    <div class="ubicaciones">
+      
+      <div class="cuadro">
+        <h2>Recepción </h2>
+        <p>
+          HIGHTSTOWN FIRST AID SQUAD, INC<br />
+          168 Bank Street<br />
+          Hightstown, New Jersey 08520
+        </p>
+        <a
+          href="https://maps.google.com/?q=HIGHTSTOWN+FIRST+AID+SQUAD+168+Bank+Street+Hightstown+New+Jersey+08520"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="icon-link"
+          aria-label="Ver ubicación de la recepción"
+          title="Ver ubicación de la recepción"
+        >
+          <!-- Icono Edificio SVG -->
+          <svg
+            viewBox="0 0 64 64"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-hidden="false"
+          >
+            <path d="M12 60h40V16H12v44zm4-36h8v8h-8v-8zm0 12h8v8h-8v-8zm16-12h8v8h-8v-8zm0 12h8v8h-8v-8zM8 12h48v4H8v-4z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+<div class="audio-player">
+  <h3>Melodía de Quinceaños</h3>
+  <audio id="audio" controls preload="auto" controlsList="nodownload noremoteplayback" autoplay>
+    <source
+      src="https://www.bensound.com/bensound-music/bensound-rhythmmagnet.mp3"
+      type="audio/mpeg"
+    />
+    Tu navegador no soporta la reproducción de audio.
+  </audio>
+</div>
+
+    <button
+    
+      class="btn-confirmar"
+      onclick="window.open('https://wa.me/16093361162?text=Hola,+confirmo+mi+asistencia+a+los+15+a%C3%B1os+de+Mayli+Janelis+Torres+Torres', '_blank')"
+    >
+      Confirmar Asistencia
+    </button>
+  </div>
+   <img class="flores" src="https://static.vecteezy.com/system/resources/thumbnails/009/597/218/small_2x/rose-flower-and-botanical-leaf-digital-painted-png.png" alt="Decoración floral" />
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script>
+  window.onload = () => {
+    // Lanzar confeti por 5 segundos
+    const duration = 5 * 1000;
+    const end = Date.now() + duration;
+
+    (function frame() {
+      confetti({
+        particleCount: 5,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 }
+      });
+      confetti({
+        particleCount: 5,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 }
+      });
+
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    })();
+
+    // Intentar reproducir música automáticamente
+    const audio = document.getElementById('audio');
+    audio.play().catch(() => {
+      console.log('El navegador bloqueó la reproducción automática.'); 
+      // Aquí podrías agregar un botón para que el usuario toque y reproduzca manualmente
+    });
+  };
+</script>
+
+  
+</script>
+</body>
+</html>
